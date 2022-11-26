@@ -29,5 +29,9 @@ app.MapPost("/todo", async (TodoContext context, TodoItem item) => {
     await context.SaveChangesAsync();
 });
 
+//app.MapPut
+
+//app.MapDelete
+
 
 app.Run();
