@@ -22,12 +22,12 @@ if (app.Environment.IsDevelopment())
 
 app.MapGet("/todo", async (TodoContext context) => await context.TodoItem.ToListAsync());
 
-app.MapGet("/todo/{id}", async (TodoContext context, int id) => await context.TodoItem.FirstOrDefaultAsync(x => x.Id == id));
+//app.MapGet("/todo/{id}", async (TodoContext context, int id) => await context.TodoItem.FirstOrDefaultAsync(x => x.Id == id));
 
-app.MapPost("/todo", async (TodoContext context, TodoItem item) => {
-    context.TodoItem.Add(item);
-    await context.SaveChangesAsync();
-});
+//app.MapPost("/todo", async (TodoContext context, TodoItem item) => {
+//    context.TodoItem.Add(item);
+//    await context.SaveChangesAsync();
+//});
 
 //app.MapPut
 
