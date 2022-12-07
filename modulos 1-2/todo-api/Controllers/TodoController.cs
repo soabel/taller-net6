@@ -59,8 +59,9 @@ namespace todo_api.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var item=_context.TodoItem.FirstOrDefault(x => x.Id == id);
-            if (item != null) {
+            var item = _context.TodoItem.FirstOrDefault(x => x.Id == id);
+            if (item != null)
+            {
                 _context.Remove(item);
                 _context.SaveChanges();
             }
