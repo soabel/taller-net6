@@ -3,8 +3,14 @@ using todo_api_minimal.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.Services.AddDbContext<TodoContext>(opt =>
+//    opt.UseInMemoryDatabase("TodoList"));
+
+var connectionString = builder.Configuration.GetConnectionString("Default");
+
 builder.Services.AddDbContext<TodoContext>(opt =>
-    opt.UseInMemoryDatabase("TodoList"));
+    opt.UseSqlServer(connectionString));
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -39,7 +45,7 @@ app.MapPost("api/todo", async (TodoContext context, TodoItem item) =>
     await context.SaveChangesAsync();
 });
 
-app.MapPut("api/todo/{id}", async (TodoContext context, TodoItem todoItem) =>
+app.MapPut("api/todo/{id}", async (TodoContext context, TodoItem todoItem, int id) =>
 {
     context.TodoItem.Update(todoItem);
     await context.SaveChangesAsync();
