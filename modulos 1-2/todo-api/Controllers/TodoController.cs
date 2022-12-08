@@ -1,8 +1,9 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using todo_api.Model;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,14 +30,18 @@ namespace todo_api.Controllers
         [HttpGet]
         public List<TodoItem> Get()
         {
-            return _context.TodoItem.ToList();
+            return _context.TodoItem.Include("User").ToList();
         }
 
-        // GET api/values/5
+        // GET api/values/5 
         [HttpGet("{id}")]
-        public TodoItem? Get(int id)
+        public ActionResult Get(int id)
         {
-            return _context.TodoItem.FirstOrDefault(x => x.Id == id);
+            var todoItem = _context.TodoItem.FirstOrDefault(x => x.Id == id);
+            if (todoItem == null)
+                return NotFound();
+
+            return Ok(todoItem);
         }
 
         // POST api/values
@@ -57,14 +62,17 @@ namespace todo_api.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
             var item = _context.TodoItem.FirstOrDefault(x => x.Id == id);
-            if (item != null)
+            if (item == null)
             {
-                _context.Remove(item);
-                _context.SaveChanges();
+                return NotFound();
             }
+
+            _context.Remove(item);
+            _context.SaveChanges();
+            return NoContent();
         }
     }
 }
