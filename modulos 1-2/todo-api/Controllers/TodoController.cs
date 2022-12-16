@@ -6,6 +6,8 @@ using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using todo_api.Dto;
+using todo_api.Filters;
 using todo_api.Model;
 using todo_api.Services;
 
@@ -67,24 +69,24 @@ namespace todo_api.Controllers
         // POST api/values
         [HttpPost]
         //[ValidateModel]
-        public IResult Post([FromBody] TodoItem todoItem)
+        public IActionResult Post([FromBody] TodoItem todoItem)
         {
             //if (!this.ModelState.IsValid)
             //{
             //    throw new ApplicationException("Error de modelo");
             //}
 
-            ValidationResult validationResult = _validator.Validate(todoItem);
+            //ValidationResult validationResult = _validator.Validate(todoItem);
 
-            if (!validationResult.IsValid)
-            {
-                return Results.ValidationProblem(validationResult.ToDictionary());
-            }
+            //if (!validationResult.IsValid)
+            //{
+            //    return StatusCode(StatusCodes.Status400BadRequest, validationResult.Errors);
+            //}
 
             _context.TodoItem.Add(todoItem);
             _context.SaveChanges();
 
-            return Results.Ok();
+            return Ok();
         }
 
         // PUT api/values/5
@@ -96,6 +98,26 @@ namespace todo_api.Controllers
 
             //_emailService.Send("alfredo.benaute@gmai.com","Tarea actualizada");
         }
+
+        // PUT api/values/5
+        [HttpPatch("{id}/complete")]
+        public async Task<IActionResult> CompleteTodo(int id, [FromBody] CompleteTodoItemDto todoItem)
+        {
+
+            var todoItemSaved = await _context.TodoItem.FirstOrDefaultAsync(x => x.Id == todoItem.Id);
+            if (todoItemSaved == null) {
+                return Problem($"La tarea {todoItem.Id} no existe", statusCode: 404);
+
+                //throw new Exception($"La tarea {todoItem.Id} no existe");
+            }
+
+            todoItemSaved.IsComplete = todoItem.IsComplete;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(todoItemSaved);   
+        }
+
 
         // DELETE api/values/5
         [HttpDelete("{id}")]

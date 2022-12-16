@@ -1,10 +1,12 @@
 ﻿using System.Reflection;
 using System.Text.Json.Serialization;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using todo_api.Configuration;
+using todo_api.Filters;
 using todo_api.Model;
 using todo_api.Services;
 using todo_api.Validations;
@@ -13,7 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddJsonOptions(x =>
+builder.Services.AddControllers(opt => opt.Filters.Add<HttpResponseExceptionFilter>())
+    .AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var connectionString = builder.Configuration.GetConnectionString("Default");
@@ -33,7 +36,12 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Email"));
 
-builder.Services.AddScoped<IValidator<TodoItem>, TodoItemValidation>();
+//builder.Services.AddScoped<IValidator<TodoItem>, TodoItemValidation>();
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssembly(typeof(TodoItemValidation).Assembly);
+
 
 //services.Configure<EmailSettingsOptions>(Configuration.GetSection("EmailSettings"));
 

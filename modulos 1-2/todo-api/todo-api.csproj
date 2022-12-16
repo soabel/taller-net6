@@ -28,11 +28,17 @@
     <None Remove="Services\" />
     <None Remove="Configuration\" />
     <None Remove="Validations\" />
+    <None Remove="Exceptions\" />
+    <None Remove="Dto\" />
+    <None Remove="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Configuration\" />
     <Folder Include="Validations\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Dto\" />
+    <Folder Include="Filters\" />
   </ItemGroup>
 
 
