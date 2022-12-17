@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FastPay.Profile.Application.Contacts.Commands.CreateContact;
+using FastPay.Profile.Application.Contacts.Queries.GetContact;
 using FastPay.Profile.Application.Contacts.Queries.ListContact;
 using FastPay.Profile.Application.Dto;
 using MediatR;
@@ -22,9 +23,15 @@ namespace FastPay.Profile.WebUI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ContactDto>>> Get()
+        public async Task<ActionResult<List<ContactDto>>> Get([FromQuery] ListContactQuery query)
         {
-            return await Mediator.Send(new ListContactQuery());
+            return await Mediator.Send(query);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetContactDto>> GetById(int id)
+        {
+            return await Mediator.Send(new GetContactQuery { Id = id });
         }
 
 
