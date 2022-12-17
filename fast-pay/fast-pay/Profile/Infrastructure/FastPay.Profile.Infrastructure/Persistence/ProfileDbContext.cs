@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FastPay.Profile.Infrastructure.Persistence
 {
-	public class ProfileDbContext: DbContext, IApplicationDbContext
+    public class ProfileDbContext : DbContext, IApplicationDbContext
     {
         public ProfileDbContext(DbContextOptions<ProfileDbContext> options)
         : base(options)
@@ -14,6 +14,7 @@ namespace FastPay.Profile.Infrastructure.Persistence
 
         public DbSet<Contact> Contacts { get; set; }
 
+        public DbSet<User> Users  {get;set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,6 +22,13 @@ namespace FastPay.Profile.Infrastructure.Persistence
             modelBuilder.Entity<Contact>(entity =>
             {
                 entity.ToTable("contact");
+                entity.HasKey(x => x.Id);
+                entity.Property(x => x.Id).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("user");
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.Id).ValueGeneratedOnAdd();
             });

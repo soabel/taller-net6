@@ -1,23 +1,23 @@
 ﻿using System;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using MediatR;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using MediatR;
-using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
-using FastPay.Profile.Application.Contacts.Commands.CreateContact;
+using FastPay.Payments.Application.Payments.Commands.CreatePayment;
 
-namespace FastPay.Profile.Application;
+namespace FastPay.Payments.Application;
 
 public static class ConfigureServices
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        //services.AddAutoMapper(Assembly.GetExecutingAssembly());
         //services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        
+
         services.AddMediatR(Assembly.GetExecutingAssembly());
 
-        services.AddValidatorsFromAssembly(typeof(CreateContactCommandValidator).Assembly);
+        services.AddValidatorsFromAssembly(typeof(CreatePaymentCommandValidator).Assembly);
         services.AddFluentValidationAutoValidation();
         services.AddFluentValidationClientsideAdapters();
 
@@ -30,4 +30,3 @@ public static class ConfigureServices
     }
 
 }
-

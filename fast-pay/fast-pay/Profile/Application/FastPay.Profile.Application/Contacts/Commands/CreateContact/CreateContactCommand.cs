@@ -16,8 +16,8 @@ public class CreateContactCommandHandler : IRequestHandler<CreateContactCommand,
 {
     private readonly IApplicationDbContext _context;
 
-
-    public CreateContactCommandHandler(IApplicationDbContext context) {
+    public CreateContactCommandHandler(IApplicationDbContext context)
+    {
         _context = context;
     }
 
@@ -36,5 +36,6 @@ public class CreateContactCommandHandler : IRequestHandler<CreateContactCommand,
         return entity.Id;
     }
 }
+
 
 
