@@ -37,7 +37,13 @@ app.MapGet("api/todo", async (TodoContext context) => {
 });
 
 
-app.MapGet("/todo/{id}", async (TodoContext context, int id) => await context.TodoItem.FirstOrDefaultAsync(x => x.Id == id));
+app.MapGet("/todo/{id}", async (TodoContext context, int id) => {
+    var todoItem = await context.TodoItem.FirstOrDefaultAsync(x => x.Id == id);
+    if (todoItem == null) {
+        return Results.NotFound();
+    }
+    return Results.Ok(todoItem);
+});
 
 app.MapPost("api/todo", async (TodoContext context, TodoItem item) =>
 {
@@ -47,8 +53,25 @@ app.MapPost("api/todo", async (TodoContext context, TodoItem item) =>
 
 app.MapPut("api/todo/{id}", async (TodoContext context, TodoItem todoItem, int id) =>
 {
-    context.TodoItem.Update(todoItem);
-    await context.SaveChangesAsync();
+    var existItem = await context.TodoItem.FirstOrDefaultAsync(x => x.Id == id);
+    if (existItem == null)
+    {
+        return Results.NotFound();
+    }
+
+    try
+    {
+        context.TodoItem.Update(todoItem);
+        await context.SaveChangesAsync();
+        return Results.NoContent();
+    }
+    catch (Exception)
+    {
+        return Results.Problem("Ha ocurrido un error no controlado");
+    }
+   
+
+    
 });
 
 app.MapDelete("api/todo/{id}", async (TodoContext context, int id) =>
@@ -56,11 +79,14 @@ app.MapDelete("api/todo/{id}", async (TodoContext context, int id) =>
     var existItem = await context.TodoItem.FirstOrDefaultAsync(x => x.Id == id);
     if (existItem == null)
     {
-        throw new ApplicationException("No encontrado");
+        //throw new ApplicationException("No encontrado");
+        return Results.NotFound();
     }
 
     context.TodoItem.Remove(existItem);
     await context.SaveChangesAsync();
+
+    return Results.NoContent();
 });
 
 
