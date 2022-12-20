@@ -20,6 +20,7 @@
     <None Remove="Payments\Commands\CreatePayment\" />
     <None Remove="Payments\Queries\" />
     <None Remove="Payments\Queries\GetLastPayments\" />
+    <None Remove="Dto\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
@@ -34,5 +35,6 @@
     <Folder Include="Payments\Commands\CreatePayment\" />
     <Folder Include="Payments\Queries\" />
     <Folder Include="Payments\Queries\GetLastPayments\" />
+    <Folder Include="Dto\" />
   </ItemGroup>
 </Project>

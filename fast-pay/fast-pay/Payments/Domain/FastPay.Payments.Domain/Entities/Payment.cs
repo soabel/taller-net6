@@ -9,6 +9,7 @@ namespace FastPay.Payments.Domain.Entities
 		public decimal Amount { get; set; }
 		public string? Comment { get; set; }
 		public DateTime Date { get; set; }
+		public string? ContactName { get; set; }
 
 	}
 }
