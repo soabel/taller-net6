@@ -5,7 +5,7 @@ using MediatR;
 
 namespace FastPay.Payments.Application.Payments.Commands.CreatePayment;
 
-public class CreatePaymentCommand: IRequest<int>
+public class CreatePaymentCommand: IRequest<CreatePaymentCommandDto>
 {
 	public int UserId { get; set; }
 	public int ContactId { get; set; }
@@ -14,7 +14,7 @@ public class CreatePaymentCommand: IRequest<int>
 }
 
 
-public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand, int>
+public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand, CreatePaymentCommandDto>
 {
     private readonly IApplicationDbContext _context;
     private readonly IProfileContactRepository _contactRepository;
@@ -24,8 +24,9 @@ public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand,
         _contactRepository = contactRepository;
     }
 
-    public async Task<int> Handle(CreatePaymentCommand request, CancellationToken cancellationToken)
+    public async Task<CreatePaymentCommandDto> Handle(CreatePaymentCommand request, CancellationToken cancellationToken)
     {
+
         var entity = new Payment
         {
             UserId = request.UserId,
@@ -34,7 +35,8 @@ public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand,
             Comment = request.Comment
         };
 
-        _context.Payments.Add(entity);
+        await _context.Payments.AddAsync(entity, cancellationToken);
+
         entity.Date = DateTime.Now;
 
         //Call to Profile contact
@@ -44,7 +46,18 @@ public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand,
 
         await _context.SaveChangesAsync(cancellationToken);
 
+        var result = new CreatePaymentCommandDto
+        {
+            Id = entity.Id,
+            UserId = entity.UserId,
+            ContactId = entity.ContactId,
+            Amount = entity.Amount,
+            Comment = entity.Comment,
+            ContactName = entity.ContactName,
+            Date = entity.Date
+        };
+            
 
-        return entity.Id;
+        return result;
     }
 }

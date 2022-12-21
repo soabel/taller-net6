@@ -21,11 +21,15 @@
     <None Remove="Payments\Queries\" />
     <None Remove="Payments\Queries\GetLastPayments\" />
     <None Remove="Dto\" />
+    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Common\Mappings\" />
+    <None Remove="Common\Behaviours\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />
@@ -36,5 +40,7 @@
     <Folder Include="Payments\Queries\" />
     <Folder Include="Payments\Queries\GetLastPayments\" />
     <Folder Include="Dto\" />
+    <Folder Include="Common\Mappings\" />
+    <Folder Include="Common\Behaviours\" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,6 @@
 ﻿using System;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using FastPay.Payments.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -14,17 +16,19 @@ public class GetLastPaymentsQuery : IRequest<List<GetLastPaymentDto>>
 public class GetLastPaymentsQueryHandler : IRequestHandler<GetLastPaymentsQuery, List<GetLastPaymentDto>>
 {
     private readonly IApplicationDbContext _context;
+    private readonly IMapper _mapper;
 
-    public GetLastPaymentsQueryHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
+    public GetLastPaymentsQueryHandler(IApplicationDbContext context, IMapper mapper)
+        => (_context, _mapper) = (context, mapper);
+    
 
     public Task<List<GetLastPaymentDto>> Handle(GetLastPaymentsQuery request, CancellationToken cancellationToken)
     {
+       
         return _context.Payments
             .Where(x => x.UserId == request.UserId)
-            .Select(x => new GetLastPaymentDto { Id = x.Id, Contact = "", Amount = x.Amount, Date = x.Date })
+            .AsNoTracking()
+            .ProjectTo<GetLastPaymentDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
     }
 }
