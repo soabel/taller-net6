@@ -7,6 +7,7 @@ using FastPay.Profile.Application.Contacts.Queries.GetContact;
 using FastPay.Profile.Application.Contacts.Queries.ListContact;
 using FastPay.Profile.Application.Dto;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -28,6 +29,7 @@ namespace FastPay.Profile.WebUI.Controllers
             return await Mediator.Send(query);
         }
 
+        //[Authorize] 
         [HttpGet("{id}")]
         public async Task<ActionResult<GetContactDto>> GetById(int id)
         {

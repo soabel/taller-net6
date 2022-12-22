@@ -8,7 +8,7 @@ namespace FastPay.Payments.WebUI.Controllers
 	public class PaymentsController: ApiControllerBase
 	{
         [HttpPost]
-        public async Task<ActionResult<int>> Create(CreatePaymentCommand command)
+        public async Task<ActionResult<CreatePaymentCommandDto>> Create(CreatePaymentCommand command)
         {
             return await Mediator.Send(command);
         }

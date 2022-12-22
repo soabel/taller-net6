@@ -47,6 +47,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BD764290
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastPay.Payments.Applications.UnitTests", "Payments\Tests\FastPay.Payments.Applications.UnitTests\FastPay.Payments.Applications.UnitTests.csproj", "{E3729E12-1AF4-4003-A60F-F2CD1085EA4C}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{10122D98-0335-4860-9BCF-BC1B9D14CC1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastPay.Payments.Domain.UnitTests", "Payments\Tests\FastPay.Payments.Domain.UnitTests\FastPay.Payments.Domain.UnitTests.csproj", "{B5BEACE9-3796-43AC-AEE7-0D02A7081819}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastPay.Payments.Infrastructure.UnitTests", "Payments\Tests\FastPay.Payments.Infrastructure.UnitTests\FastPay.Payments.Infrastructure.UnitTests.csproj", "{244CB741-C4D4-45E1-AAC0-F94C02FC141E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +99,18 @@ Global
 		{E3729E12-1AF4-4003-A60F-F2CD1085EA4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3729E12-1AF4-4003-A60F-F2CD1085EA4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3729E12-1AF4-4003-A60F-F2CD1085EA4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10122D98-0335-4860-9BCF-BC1B9D14CC1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10122D98-0335-4860-9BCF-BC1B9D14CC1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10122D98-0335-4860-9BCF-BC1B9D14CC1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10122D98-0335-4860-9BCF-BC1B9D14CC1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5BEACE9-3796-43AC-AEE7-0D02A7081819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5BEACE9-3796-43AC-AEE7-0D02A7081819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5BEACE9-3796-43AC-AEE7-0D02A7081819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5BEACE9-3796-43AC-AEE7-0D02A7081819}.Release|Any CPU.Build.0 = Release|Any CPU
+		{244CB741-C4D4-45E1-AAC0-F94C02FC141E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{244CB741-C4D4-45E1-AAC0-F94C02FC141E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{244CB741-C4D4-45E1-AAC0-F94C02FC141E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{244CB741-C4D4-45E1-AAC0-F94C02FC141E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,5 +139,7 @@ Global
 		{BD764290-BFF3-4FFA-BCE4-DF17E01772E4} = {D5CDE747-F574-4596-A8A5-BD7F07B2B484}
 		{EA448F52-1F98-4664-8986-2AF436C0609E} = {999F2741-4C30-4356-B375-10E2EA279B00}
 		{E3729E12-1AF4-4003-A60F-F2CD1085EA4C} = {BD764290-BFF3-4FFA-BCE4-DF17E01772E4}
+		{B5BEACE9-3796-43AC-AEE7-0D02A7081819} = {BD764290-BFF3-4FFA-BCE4-DF17E01772E4}
+		{244CB741-C4D4-45E1-AAC0-F94C02FC141E} = {BD764290-BFF3-4FFA-BCE4-DF17E01772E4}
 	EndGlobalSection
 EndGlobal

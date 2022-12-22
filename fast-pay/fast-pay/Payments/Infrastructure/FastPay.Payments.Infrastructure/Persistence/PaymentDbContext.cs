@@ -23,6 +23,8 @@ public class PaymentDbContext : DbContext, IApplicationDbContext
             entity.ToTable("payment");
             entity.HasKey(x => x.Id);
             entity.Property(x => x.Id).ValueGeneratedOnAdd();
+            entity.Property(x => x.Amount).HasColumnType("decimal(18,2)");
+
         });
 
         base.OnModelCreating(modelBuilder);

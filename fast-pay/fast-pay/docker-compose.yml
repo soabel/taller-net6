@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  fastpay.payments.webui:
+    image: ${DOCKER_REGISTRY-}fastpaypayments
+    build:
+      context: .
+      dockerfile: Payments/WebUI/FastPay.Payments.WebUI/Dockerfile
+
+  fastpay.profile.webui:
+    image: ${DOCKER_REGISTRY-}fastpayprofile
+    build:
+      context: .
+      dockerfile: Profile/WebUI/FastPay.Profile.WebUI/Dockerfile
+
